@@ -1,6 +1,5 @@
 <template>
   <form class="form" @submit.prevent="submitForm">
-    {{ current }}
     <input
       class="form_item"
       placeholder="First Name"
@@ -34,7 +33,7 @@
       v-model="lead.role"
     >
       <option value="" disabled selected hidden color="gray">Role</option>
-      <option value="CEO">CEO</option>
+      <option value="Ceo">CEO</option>
       <option value="Manager">Manager</option>
       <option value="Account Manager">Account Manager</option>
       <option value="Owner">Owner</option>
@@ -92,7 +91,14 @@ export default {
       patchLead: (data) => store.dispatch(types.PATCH_LEAD, data),
     }
   },
-
+  watch: {
+    current(newVal) {
+      this.lead = newVal
+    },
+    lead(newVal) {
+      console.log(newVal)
+    },
+  },
   data() {
     let formData = { ...base }
     if (this.current) {

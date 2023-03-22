@@ -28,6 +28,7 @@ export default {
       set_current: (data) => store.dispatch(types.SET_CURRENT, data),
     }
   },
+
   methods: {
     setCurrent() {
       this.set_current({ id: this.lead.id })
