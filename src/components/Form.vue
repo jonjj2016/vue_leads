@@ -38,7 +38,7 @@
       <option value="AccountManager">Account Manager</option>
       <option value="Owner">Owner</option>
       <option value="Operations">Operations</option>
-      <option value="Board Member">Board Member</option>
+      <option value="BoardMember">Board Member</option>
     </select>
 
     <input
@@ -82,7 +82,6 @@ let base = {
   email: '',
   phone: '',
 }
-let updateMode = false
 export default {
   setup() {
     const store = useStore()
@@ -94,9 +93,11 @@ export default {
   watch: {
     current(newVal) {
       this.lead = newVal
+      this.editMode = true
     },
-    lead(newVal) {
-      console.log(newVal)
+    leads() {
+      this.editMode = false
+      this.lead = { ...base, emailError: '', phoneError: '' }
     },
   },
   data() {
@@ -111,19 +112,12 @@ export default {
         emailError: '',
         phoneError: '',
       },
+      editMode: false,
     }
   },
   computed: mapState({
     leads: (state) => state.leads,
-    current: (state) => {
-      if (state.current) {
-        updateMode = true
-
-        // base = { ...state.current }
-        // this.lead.firstName = state.current.firstName
-      }
-      return state.current
-    },
+    current: (state) => state.current,
   }),
   methods: {
     clear() {
@@ -132,6 +126,7 @@ export default {
         emailError: '',
         phoneError: '',
       }
+      this.editMode = false
     },
     validateEmail() {
       const emailRegex = /\S+@\S+\.\S+/
@@ -145,9 +140,6 @@ export default {
     },
     validatePhone() {
       const phoneNumberRegex = /^\d{10}$/
-      //   if (!phoneNumberRegex.test(this.lead.phone)) {
-      //     this.emailError = 'Please enter a valid phone number'
-      //   }
       if (!this.lead.phone) {
         this.phoneError = 'Please enter an phone number'
       } else if (!phoneNumberRegex.test(this.lead.phone)) {
@@ -157,16 +149,10 @@ export default {
       }
     },
     submitForm() {
-      console.log({
-        firstName: this.lead.firstName,
-        lastName: this.lead.lastName,
-        role: this.lead.role,
-        organization: this.lead.organization,
-        email: this.lead.email,
-        phone: this.lead.phone,
-        id: uuid.v1(),
-        selected: false,
-      })
+      if (this.editMode) {
+        this.patchLead(this.lead)
+        return
+      }
       this.postLead({
         firstName: this.lead.firstName,
         lastName: this.lead.lastName,
@@ -177,8 +163,9 @@ export default {
         id: uuid.v1(),
         selected: false,
       })
-
+      // need to change temp solution
       this.lead = { ...base }
+      this.editMode = false
     },
     validatePhoneNumber() {
       const phoneNumberRegex = /^\+?[0-9]\d{1,20}$/
