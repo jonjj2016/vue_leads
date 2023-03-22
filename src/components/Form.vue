@@ -35,10 +35,10 @@
       <option value="" disabled selected hidden color="gray">Role</option>
       <option value="Ceo">CEO</option>
       <option value="Manager">Manager</option>
-      <option value="AccountManager">Account Manager</option>
+      <option value="Account Manager">Account Manager</option>
       <option value="Owner">Owner</option>
       <option value="Operations">Operations</option>
-      <option value="BoardMember">Board Member</option>
+      <option value="Board Member">Board Member</option>
     </select>
 
     <input
