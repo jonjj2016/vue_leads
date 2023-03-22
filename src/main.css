@@ -36,6 +36,7 @@
   width: 45%;
   padding: 8px;
   border-radius: 4px;
+  cursor: pointer;
 }
 .filter {
   margin: 2rem 0;

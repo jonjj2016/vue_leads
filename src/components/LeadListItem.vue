@@ -1,6 +1,6 @@
 <template>
   <div
-    @click="onUpdate"
+    @click="setCurrent"
     :class="{ selected: lead.selected }"
     class="lead_item"
     @dblclick="toggleSelected()"
@@ -29,8 +29,7 @@ export default {
     }
   },
   methods: {
-    onUpdate() {
-      console.log(45465)
+    setCurrent() {
       this.set_current({ id: this.lead.id })
     },
     deleteLead() {

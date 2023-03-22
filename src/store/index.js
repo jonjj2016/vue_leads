@@ -31,7 +31,6 @@ export default createStore({
       })
     },
     [types.POST_LEAD](state, payload) {
-      // state.leads.unshift(payload)
       const options = {
         url: `${server_url}/leads`,
         method: 'POST',
@@ -88,21 +87,13 @@ export default createStore({
     },
     [types.SET_CURRENT](state, payload) {
       const { id } = payload
-      // const options = {
-      //   url: `http://localhost:3000/leads/${id}`,
-      //   method: 'DELETE',
-      //   headers: {
-      //     Accept: 'application/json',
-      //     'Content-Type': 'application/json;charset=UTF-8',
-      //   },
-      // }
+
       const lead = state.state.leads.find((lead) => {
         if (lead.id === id) {
           return lead
         }
       })
       state.state.current = lead
-      console.log(state.state)
     },
   },
 })

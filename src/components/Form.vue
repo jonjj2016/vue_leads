@@ -92,31 +92,33 @@ export default {
       patchLead: (data) => store.dispatch(types.PATCH_LEAD, data),
     }
   },
+
+  data() {
+    let formData = { ...base }
+    if (this.current) {
+      formData = { ...this.current }
+      // base.firstName = this.current.firstName
+    }
+    return {
+      lead: {
+        ...formData,
+        emailError: '',
+        phoneError: '',
+      },
+    }
+  },
   computed: mapState({
     leads: (state) => state.leads,
     current: (state) => {
       if (state.current) {
         updateMode = true
-        base = { ...state.current }
+
+        // base = { ...state.current }
+        // this.lead.firstName = state.current.firstName
       }
       return state.current
     },
   }),
-  data() {
-    // let formData = { ...base }
-    // if (this.current) {
-    //   formData = this.current
-    // }
-    return {
-      lead: {
-        ...base,
-        emailError: '',
-        phoneError: '',
-        ...this.current,
-      },
-    }
-  },
-
   methods: {
     clear() {
       this.lead = {
@@ -149,6 +151,16 @@ export default {
       }
     },
     submitForm() {
+      console.log({
+        firstName: this.lead.firstName,
+        lastName: this.lead.lastName,
+        role: this.lead.role,
+        organization: this.lead.organization,
+        email: this.lead.email,
+        phone: this.lead.phone,
+        id: uuid.v1(),
+        selected: false,
+      })
       this.postLead({
         firstName: this.lead.firstName,
         lastName: this.lead.lastName,
@@ -159,6 +171,7 @@ export default {
         id: uuid.v1(),
         selected: false,
       })
+
       this.lead = { ...base }
     },
     validatePhoneNumber() {
