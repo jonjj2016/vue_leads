@@ -1,20 +1,23 @@
 <template>
-  <div>
-    <div class="filter">
-      <input
-        v-on:change="onSearch"
-        placeholder="Filter Leads"
-        type="text"
-        id="search"
-        v-model="searchTerm"
-      />
-      <div>
+  <div class="filter">
+    <input
+      v-on:change="onSearch"
+      placeholder="Filter Leads"
+      type="text"
+      id="search"
+      v-model="searchTerm"
+    />
+    <!-- <div>
         <label>
           <input type="checkbox" v-model="searchSelected" />
         </label>
         <span>Selected</span>
-      </div>
-    </div>
+      </div> -->
+    <label class="checkbox">
+      <input type="checkbox" v-model="searchSelected" />
+      <span class="checkmark"></span>
+      Selected
+    </label>
   </div>
 </template>
 
