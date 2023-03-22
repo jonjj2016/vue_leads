@@ -42,7 +42,6 @@ export default {
         selected = false
       }
       this.update({ id: this.lead.id, selected })
-      // this.find({})
     },
   },
 }
