@@ -1,18 +1,8 @@
-// import Vue from 'vue'
-// import Vuex from 'vuex'
-// import leads from './modules/leads'
-
-// Vue.use(Vuex)
-
-// const store = new Vuex.Store({
-//   modules: {
-//     leads,
-//   },
-// })
-// export default store
 import axios from 'axios'
 import { createStore, createLogger } from 'vuex'
 import types from './mutation-types'
+
+const server_url = import.meta.env.VITE_SERVER_URL
 
 export default createStore({
   state: {
@@ -28,7 +18,7 @@ export default createStore({
   actions: {
     [types.FIND_LEAD](state, query) {
       const options = {
-        url: 'http://localhost:3000/leads',
+        url: `${server_url}/leads`,
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -43,7 +33,7 @@ export default createStore({
     [types.POST_LEAD](state, payload) {
       // state.leads.unshift(payload)
       const options = {
-        url: 'http://localhost:3000/leads',
+        url: `${server_url}/leads`,
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -58,7 +48,7 @@ export default createStore({
     [types.PATCH_LEAD](state, payload) {
       const { id, ...data } = payload
       const options = {
-        url: `http://localhost:3000/leads/${id}`,
+        url: `${server_url}/leads/${id}`,
         method: 'PATCH',
         headers: {
           Accept: 'application/json',
@@ -80,7 +70,7 @@ export default createStore({
     [types.DELETE_LEAD](state, payload) {
       const { id } = payload
       const options = {
-        url: `http://localhost:3000/leads/${id}`,
+        url: `${server_url}/leads/${id}`,
         method: 'DELETE',
         headers: {
           Accept: 'application/json',
