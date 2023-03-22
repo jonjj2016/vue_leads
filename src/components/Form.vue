@@ -1,5 +1,6 @@
 <template>
   <form class="form" @submit.prevent="submitForm">
+    {{ current }}
     <input
       class="form_item"
       placeholder="First Name"
@@ -74,7 +75,6 @@ import { uuid } from 'vue-uuid'
 import { useStore } from 'vuex'
 import types from '../store/mutation-types'
 import { mapState } from 'vuex'
-
 let base = {
   firstName: '',
   lastName: '',
@@ -83,39 +83,41 @@ let base = {
   email: '',
   phone: '',
 }
+let updateMode = false
 export default {
   setup() {
     const store = useStore()
     return {
       postLead: (data) => store.dispatch(types.POST_LEAD, data),
+      patchLead: (data) => store.dispatch(types.PATCH_LEAD, data),
     }
   },
   computed: mapState({
     leads: (state) => state.leads,
     current: (state) => {
       if (state.current) {
+        updateMode = true
         base = { ...state.current }
-        console.log(base)
       }
       return state.current
     },
   }),
   data() {
-    let formData = { ...base }
-    if (this.current) {
-      formData = this.current
-    }
+    // let formData = { ...base }
+    // if (this.current) {
+    //   formData = this.current
+    // }
     return {
       lead: {
-        ...this.current,
+        ...base,
         emailError: '',
         phoneError: '',
+        ...this.current,
       },
     }
   },
 
   methods: {
-    props: ['data'],
     clear() {
       this.lead = {
         ...base,

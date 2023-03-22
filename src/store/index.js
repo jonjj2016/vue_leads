@@ -113,9 +113,6 @@ export default createStore({
       })
       state.state.current = lead
       console.log(state.state)
-      // axios(options).then((res) => {
-      // state.state.leads = leads
-      // })
     },
   },
 })

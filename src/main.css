@@ -55,6 +55,7 @@
   flex-direction: column;
   align-items: center;
   padding: 16px;
+  cursor: pointer;
 }
 .lead_item > button {
   position: absolute;
